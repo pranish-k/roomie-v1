@@ -48,7 +48,6 @@ Roomie App is a web application designed to help roommates manage shared respons
 
 ## Project Structure
 
-\`\`\`
 src/
 ├── config/          # Configuration files (e.g., Passport.js)
 ├── models/          # Sequelize models for database tables
@@ -56,7 +55,6 @@ src/
 ├── utils/           # Utility functions (e.g., middleware)
 ├── views/           # Pug templates for rendering UI
 └── index.js         # Main entry point of the application
-\`\`\`
 
 ## License
 
