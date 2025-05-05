@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .bg-white.shadow-lg.rounded-lg.p-6.max-w-md.mx-auto
+    h2.text-xl.mb-4 Join or Create Group
+    form(action="/group/join" method="POST" class="mb-4 flex")
+      input(name="code" placeholder="Group Code" required class="flex-grow p-2 border rounded-l")
+      button.px-4.bg-blue-500.text-white.rounded-r Join
+    form(action="/group/create" method="POST" class="flex")
+      input(name="name" placeholder="Group Name (optional)" class="flex-grow p-2 border rounded-l")
+      button.px-4.bg-green-500.text-white.rounded-r Create

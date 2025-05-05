@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  .max-w-lg.mx-auto.bg-white.shadow-lg.rounded-lg.p-6
+    h2.text-xl.mb-4 Bills & Payments
+    // Add Expense
+    form(action="/bills" method="POST" class="mb-6 space-y-2")
+      input(name="description" placeholder="Description" required class="w-full p-2 border rounded")
+      input(name="amount" type="number" step="0.01" placeholder="Amount" required class="w-full p-2 border rounded")
+      button(type="submit" class="px-4 py-2 bg-blue-500 text-white.rounded") Add Expense
+
+    // Record Payment
+    form(action="/bills/payment" method="POST" class="mb-6 space-y-2")
+      select(name="payeeId" required class="w-full p-2 border rounded")
+        option(value="" disabled selected) Select Payee
+        each m in members
+          if m.id !== user.id
+            option(value=m.id)= m.email
+      input(name="amount" type="number" step="0.01" placeholder="Amount" required class="w-full p-2 border rounded")
+      button(type="submit" class="px-4 py-2 bg-green-500 text-white.rounded") Record Payment
+
+    // Display Transactions
+    table.w-full.table-auto.mb-4
+      thead.bg-gray-200
+        tr
+          th.px-2.py-1 Description
+          th.px-2.py-1 Amount
+          th.px-2.py-1 Payer
+      tbody
+        each t in transactions
+          tr
+            td.px-2.py-1= t.description
+            td.px-2.py-1= t.amount.toFixed(2)
+            td.px-2.py-1= t.payer.email
+
+    // Display Payments
+    table.w-full.table-auto.mb-4
+      thead.bg-gray-200
+        tr
+          th.px-2.py-1 From
+          th.px-2.py-1 To
+          th.px-2.py-1 Amount
+      tbody
+        each p in payments
+          tr
+            td.px-2.py-1= p.payer.email
+            td.px-2.py-1= p.payee.email
+            td.px-2.py-1= p.amount.toFixed(2)
+
+    // Balances
+    h3.text-lg.mb-2 Balances
+    ul
+      each b in displayBalances
+        li(class=b.bal < 0 ? 'text-red-500' : 'text-black') #{b.email}: #{b.bal.toFixed(2)}

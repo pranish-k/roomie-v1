@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  .max-w-lg.mx-auto.bg-white.shadow-lg.rounded-lg.p-6
+    h2.text-xl.mb-4 Chores Scheduler
+    // Toggle Views
+    .mb-4
+      a(class=view==='all' ? 'font-bold mr-4' : 'mr-4')(href='?view=all') All Tasks
+      a(class=view==='self' ? 'font-bold' : '')(href='?view=self') My Tasks
+
+    // Add Task
+    form(action="/chores" method="POST" class="mb-6 space-y-2")
+      input(name="name" placeholder="Task Name" required class="w-full p-2 border rounded")
+      select(name="dayOfWeek" required class="w-full p-2 border rounded")
+        option(disabled selected) Select Day
+        each d in ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+          option(value=d)= d
+      input(name="occurrencesPerWeek" type="number" min="1" placeholder="Times per week" required class="w-full p-2 border rounded")
+      select(name="startUserId" required class="w-full p-2 border rounded")
+        option(disabled selected) Starting Roommate
+        each m in members
+          option(value=m.id)= m.email
+      button(type="submit" class="px-4 py-2 bg-blue-500 text-white.rounded") Add Task
+
+    // Upcoming Assignments
+    table.w-full.table-auto
+      thead.bg-gray-200
+        tr
+          th.px-2.py-1 Task
+          th.px-2.py-1 Day
+          th.px-2.py-1 Occurrences/Week
+          th.px-2.py-1 Starter
+          th.px-2.py-1 Assigned To
+          th.px-2.py-1 Next Due
+      tbody
+        each a in assignments
+          tr
+            td.px-2.py-1= a.task.name
+            td.px-2.py-1= a.task.dayOfWeek
+            td.px-2.py-1= a.task.occurrencesPerWeek
+            td.px-2.py-1= a.task.starter.email
+            td.px-2.py-1= a.assigned.email
+            td.px-2.py-1= a.nextDate

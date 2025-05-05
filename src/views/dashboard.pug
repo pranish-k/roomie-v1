@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  .bg-white.shadow-lg.rounded-lg.p-6
+    h2.text-2xl.font-serif Hello, #{user.name}!
+    .mt-4.grid.grid-cols-2.gap-4
+      a.block.text-center.py-4.bg-blue-100.rounded.shadow(href='/group/join') Join/Create Group
+      a.block.text-center.py-4.bg-green-100.rounded.shadow(href='/bills') Bills
+      a.block.text-center.py-4.bg-yellow-100.rounded.shadow(href='/chores') Chores
+      a.block.text-center.py-4.bg-red-100.rounded.shadow.text-red-600(href='/auth/logout') Logout
